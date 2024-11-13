@@ -1,0 +1,56 @@
+Jenkins Debian Packages
+go to this url https://pkg.jenkins.io/debian-stable/
+
+1. This is the Debian package repository of Jenkins to automate installation and upgrade. To use this repository, first add the key to your system (for the Weekly Release Line):
+
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+    https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+
+2. Then add a Jenkins apt repository entry:
+
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+    https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+    /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+3. Update your local package index, then finally install Jenkins:
+
+  sudo apt-get update
+  sudo apt-get install fontconfig openjdk-17-jre
+  sudo apt-get install jenkins
+  sudo systemctl start jenkins
+  sudo systemctl enable jenkins
+  sudo systemctl status jenkins
+  
+  sudo ufw allow 8080
+   sudo ufw allow OpenSSH
+   sudo ufw enable
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+ vi /usr/lib/systemd/system/jenkins.service (change the port 8080)
+
+
+http://your-public-ip:8080
+  
+
+
+Note:- Check instance security group inbound rule add custom port  8080
+
+add this in ec2 inbound rule
+IPv4
+SSH
+TCP
+22
+0.0.0.0/0
+
+IPv4
+HTTPS
+TCP
+443
+0.0.0.0/0
+
+IPv4
+Custom TCP
+TCP
+8080
+0.0.0.0/0
